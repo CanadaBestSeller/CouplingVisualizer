@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="Coupling Category"
+            id="CouplingVisualizer">
+      </category>
+      <view
+            name="Coupling Visualizer"
+            icon="icons/sample.gif"
+            category="CouplingVisualizer"
+            class="ca.ubc.cv.views.CouplingVisualizer"
+            id="ca.ubc.cv.views.CouplingVisualizer">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <view
+               ratio="0.5"
+               relative="org.eclipse.ui.views.ProblemView"
+               relationship="right"
+               id="ca.ubc.cv.views.CouplingVisualizer">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+   </extension>
+   
+   
+   <extension point="org.eclipse.ui.popupMenus"> 
+		<viewerContribution 
+		      id="ca.ubc.cv.popup.editor"
+		   targetID="#TextEditorContext"> 
+		   <action
+		         id="org.eclipse.ui.articles.action.contribution.editor.action1" 
+		         label="Test Action"
+		         icon="icons/sample.gif"
+		      menubarPath="additions" 
+		      class="ca.ubc.cv.actions.TestAction"> 
+		      </action> 
+		   </viewerContribution> 
+	</extension>
+	
+	
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            objectClass="org.eclipse.jdt.core.IMethod"
+            id="ca.ubc.cv.popupMenus">
+         <menu
+               label="Coupling Visualizer"
+               path="additions"
+               id="ca.ubc.cv.testSubMenu">
+            <separator
+                  name="group1">
+            </separator>
+         </menu>
+         <action
+               label="Show UML Diagram"
+               class="ca.ubc.cv.actions.TestAction"
+               menubarPath="ca.ubc.cv.testSubMenu/group1"
+               enablesFor="1"
+               id="ca.ubc.cv.showUmlDiagram">
+         </action>
+         <action
+               label="Show Method Dependencies/Dependents"
+               class="ca.ubc.cv.actions.TestAction"
+               menubarPath="ca.ubc.cv.testSubMenu/group1"
+               enablesFor="1"
+               id="ca.ubc.cv.showMethodDependencies">
+         </action>
+      </objectContribution>
+   </extension>
+	
+</plugin>
