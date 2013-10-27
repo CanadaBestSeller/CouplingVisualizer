@@ -19,15 +19,16 @@ import java.util.List;
  */
 public class MethodNode {
 
+	private String methodName; 
 	private String className;
 	private int degree;
 	private List<MethodNode> callersList; 
-	private List<Class> parametersList;
-	private Class returnType; 
+	private List<Class<?>> parametersList;
+	private Class<?> returnType; 
 	
 	public MethodNode() {
 		callersList = new ArrayList<MethodNode>(); 
-		parametersList = new ArrayList<Class>(); 
+		parametersList = new ArrayList<Class<?>>(); 
 	}
 	
 	public int getDepth() {
@@ -36,28 +37,34 @@ public class MethodNode {
 	public void setDepth(int depth) {
 		this.degree = depth;
 	}
+	public String getMethodName() {
+		return methodName; 
+	}
+	public void setMethodName(String methodName) {
+		this.methodName = methodName; 
+	}
 	public String getClassName() {
 		return className;
 	}
 	public void setClassName(String className) {
 		this.className = className;
 	}
-	public List<MethodNode> getNodes() {
+	public List<MethodNode> getCallerList() {
 		return callersList;
 	}
-	public void setNodes(List<MethodNode> nodes) {
+	public void setCallerList(List<MethodNode> nodes) {
 		this.callersList = nodes;
 	}
-	public List<Class> getParameters() {
+	public List<Class<?>> getParameters() {
 		return parametersList;
 	}
-	public void setParameters(List<Class> parameters) {
+	public void setParameters(List<Class<?>> parameters) {
 		this.parametersList = parameters;
 	}
-	public Class getReturnType() {
+	public Class<?> getReturnType() {
 		return returnType; 
 	}
-	public void setReturnType(Class returnType) {
+	public void setReturnType(Class<?> returnType) {
 		this.returnType = returnType;
 	}
 	
