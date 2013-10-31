@@ -12,7 +12,7 @@
             name="Coupling Visualizer"
             icon="icons/sample.gif"
             category="CouplingVisualizer"
-            class="ca.ubc.cv.views.CouplingVisualizer"
+            class="ca.ubc.cv.views.CouplingVisualizerView"
             id="ca.ubc.cv.views.CouplingVisualizer">
       </view>
    </extension>
@@ -66,14 +66,14 @@
          </menu>
          <action
                label="Show UML Diagram"
-               class="ca.ubc.cv.actions.TestAction"
+               class="ca.ubc.cv.actions.MethodTreeCreatorAction"
                menubarPath="ca.ubc.cv.testSubMenu/group1"
                enablesFor="1"
                id="ca.ubc.cv.showUmlDiagram">
          </action>
          <action
                label="Show Method Dependencies/Dependents"
-               class="ca.ubc.cv.actions.TestAction"
+               class="ca.ubc.cv.actions.MethodTreeCreatorAction"
                menubarPath="ca.ubc.cv.testSubMenu/group1"
                enablesFor="1"
                id="ca.ubc.cv.showMethodDependencies">

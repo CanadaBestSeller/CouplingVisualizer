@@ -105,7 +105,7 @@ public class MethodNode {
 	public String subTreeToString(int depth) {
 		String spacing = ""; 
 		for (int i = 0; i < depth; i++) {
-			spacing += "  "; 
+			spacing += "    "; 
 		}
 		
 		String val = spacing + this.toString(); 
