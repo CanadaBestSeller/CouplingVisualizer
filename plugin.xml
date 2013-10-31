@@ -36,21 +36,21 @@
    </extension>
    
    
-   <extension point="org.eclipse.ui.popupMenus"> 
-		<viewerContribution 
-		      id="ca.ubc.cv.popup.editor"
-		   targetID="#TextEditorContext"> 
-		   <action
-		         id="org.eclipse.ui.articles.action.contribution.editor.action1" 
-		         label="Test Action"
-		         icon="icons/sample.gif"
-		      menubarPath="additions" 
-		      class="ca.ubc.cv.actions.TestAction"> 
-		      </action> 
-		   </viewerContribution> 
-	</extension>
-	
-	
+   <extension point="org.eclipse.ui.popupMenus">
+                <viewerContribution
+                 id="ca.ubc.cv.popup.editor"
+                 targetID="#TextEditorContext">
+                 <action
+                 id="org.eclipse.ui.articles.action.contribution.editor.action1"
+                 label="Test Action"
+                 icon="icons/sample.gif"
+                 menubarPath="additions"
+                 class="ca.ubc.cv.actions.TestAction">
+                 </action>
+                 </viewerContribution>
+        </extension>
+        
+        
    <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
@@ -80,5 +80,5 @@
          </action>
       </objectContribution>
    </extension>
-	
+        
 </plugin>
