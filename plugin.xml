@@ -35,22 +35,6 @@
       </contexts>
    </extension>
    
-   
-   <extension point="org.eclipse.ui.popupMenus"> 
-		<viewerContribution 
-		      id="ca.ubc.cv.popup.editor"
-		   targetID="#TextEditorContext"> 
-		   <action
-		         id="org.eclipse.ui.articles.action.contribution.editor.action1" 
-		         label="Test Action"
-		         icon="icons/sample.gif"
-		      menubarPath="additions" 
-		      class="ca.ubc.cv.actions.TestAction"> 
-		      </action> 
-		   </viewerContribution> 
-	</extension>
-	
-	
    <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
@@ -66,19 +50,29 @@
          </menu>
          <action
                label="Show UML Diagram"
-               class="ca.ubc.cv.actions.TestAction"
+               class="ca.ubc.cv.actions.MethodTreeCreatorAction"
                menubarPath="ca.ubc.cv.testSubMenu/group1"
                enablesFor="1"
                id="ca.ubc.cv.showUmlDiagram">
          </action>
          <action
                label="Show Method Dependencies/Dependents"
-               class="ca.ubc.cv.actions.TestAction"
+               class="ca.ubc.cv.actions.MethodTreeCreatorAction"
                menubarPath="ca.ubc.cv.testSubMenu/group1"
                enablesFor="1"
                id="ca.ubc.cv.showMethodDependencies">
          </action>
       </objectContribution>
+      <viewerContribution
+            id="ca.ubc.cv.addToConcernEditorContribution"
+            targetID="org.eclipse.jdt.ui.CompilationUnitEditor.EditorContext">
+         <action
+               class="ca.ubc.cv.actions.IMethodExtractor"
+               id="ca.ubc.cv.couplingVisualizerMenuForEditor"
+               label="CouplingVisualizer"
+               menubarPath="additions"
+               style="pulldown"/>
+      </viewerContribution>
    </extension>
 	
 </plugin>
