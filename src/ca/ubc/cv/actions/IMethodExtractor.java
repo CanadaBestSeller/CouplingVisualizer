@@ -21,11 +21,7 @@ import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.IEditorActionDelegate;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IObjectActionDelegate;
-import org.eclipse.ui.IPageLayout;
-import org.eclipse.ui.ISelectionListener;
-import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.PlatformUI;
 
 public class IMethodExtractor implements IObjectActionDelegate, IMenuCreator,
 		IEditorActionDelegate {
@@ -68,7 +64,6 @@ public class IMethodExtractor implements IObjectActionDelegate, IMenuCreator,
 	public void selectionChanged(IAction action, ISelection selection) {
 		action.setMenuCreator(this);
 		aSelection = selection;
-		System.out.println("SELECTION CHANGED!");
 	}
 
 	/**
@@ -119,7 +114,6 @@ public class IMethodExtractor implements IObjectActionDelegate, IMenuCreator,
 
 		@SuppressWarnings("deprecation")
 		public void widgetSelected(SelectionEvent pEvent) {
-			System.out.println("YOU CLICKED ON SOMETHING!");
 			
 			if(aJavaEditor instanceof JavaEditor) {
 			    ITypeRoot root = EditorUtility.getEditorInputJavaElement(aJavaEditor, false);
@@ -128,15 +122,14 @@ public class IMethodExtractor implements IObjectActionDelegate, IMenuCreator,
 				try {
 					elt = root.codeSelect(sel.getOffset(), sel.getLength());
 				} catch (JavaModelException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			    if (elt[0].getElementType() == IJavaElement.METHOD) {
-			        //return (IMethod) elt[0];
 			    	System.out.println("IMETHOD name is: " + elt[0].toString());
 			    }
 			}
-			//return null;
+			// Deal with null case here:
+			// return null;
 		}
 
 		private boolean supportedElement(IJavaElement p) {
