@@ -22,6 +22,10 @@ import org.eclipse.ui.IEditorActionDelegate;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.zest.core.widgets.Graph;
+import org.eclipse.zest.core.widgets.GraphNode;
+
+import ca.ubc.cv.views.CouplingVisualizerView;
 
 public class IMethodExtractor implements IObjectActionDelegate, IMenuCreator,
 		IEditorActionDelegate {
@@ -112,7 +116,6 @@ public class IMethodExtractor implements IObjectActionDelegate, IMenuCreator,
 
 	private class ShowDependenciesMenuItemListener extends SelectionAdapter {
 
-		@SuppressWarnings("deprecation")
 		public void widgetSelected(SelectionEvent pEvent) {
 			
 			if(aJavaEditor instanceof JavaEditor) {
@@ -125,7 +128,8 @@ public class IMethodExtractor implements IObjectActionDelegate, IMenuCreator,
 					e.printStackTrace();
 				}
 			    if (elt[0].getElementType() == IJavaElement.METHOD) {
-			    	System.out.println("IMETHOD name is: " + elt[0].toString());
+			    	// Let IMethodHandler decide what to do
+			    	IMethodHandler.execute((IMethod) elt[0]);
 			    }
 			}
 			// Deal with null case here:
