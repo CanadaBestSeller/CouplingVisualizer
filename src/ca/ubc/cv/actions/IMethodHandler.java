@@ -1,15 +1,14 @@
 package ca.ubc.cv.actions;
 
 import org.eclipse.jdt.core.IMethod;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.zest.core.widgets.GraphConnection;
-import org.eclipse.zest.core.widgets.GraphNode;
-import org.eclipse.zest.core.widgets.ZestStyles;
 import org.eclipse.zest.layouts.LayoutStyles;
 import org.eclipse.zest.layouts.algorithms.SpringLayoutAlgorithm;
 
+import ca.ubc.cv.graph.MethodNodeToGraphConverter;
+import ca.ubc.cv.treebuilder.MethodNode;
+import ca.ubc.cv.treebuilder.MethodTreeBuilder;
 import ca.ubc.cv.views.CouplingVisualizerView;
 
 public class IMethodHandler {
@@ -18,25 +17,18 @@ public class IMethodHandler {
 		System.out.println("IMETHOD name is: " + m.toString());
 		
 	    CouplingVisualizerView.clearGraph();
-
-		GraphNode node1 = new GraphNode(CouplingVisualizerView.graph, SWT.NONE, "Jim");
-		GraphNode node2 = new GraphNode(CouplingVisualizerView.graph, SWT.NONE, "Jack");
-		GraphNode node3 = new GraphNode(CouplingVisualizerView.graph, SWT.NONE, "Joe");
-		GraphNode node4 = new GraphNode(CouplingVisualizerView.graph, SWT.NONE, "Bill");
-
-		// Lets have a directed connection
-		new GraphConnection(CouplingVisualizerView.graph, ZestStyles.CONNECTIONS_DIRECTED, node1,
-				node2);
-		// Lets have a dotted graph connection
-		new GraphConnection(CouplingVisualizerView.graph, ZestStyles.CONNECTIONS_DOT, node2, node3);
-		// Standard connection
-		new GraphConnection(CouplingVisualizerView.graph, SWT.NONE, node3, node1);
-		// Change line color and line width
-		GraphConnection graphConnection = new GraphConnection(CouplingVisualizerView.graph, SWT.NONE,
-				node1, node4);
-		// Also set a text
-		graphConnection.setText("This is a text");
-		graphConnection.setLineWidth(3);
+	    
+	    MethodTreeBuilder chg = new MethodTreeBuilder();
+        MethodNode rootMethodNode = chg.constructMethodTree(m);
+        System.out.println(rootMethodNode.subTreeToString(0)); 
+        
+        MethodNodeToGraphConverter mngc = new MethodNodeToGraphConverter(
+        		CouplingVisualizerView.parent,
+        		CouplingVisualizerView.graph);
+        
+        mngc.methodNodeTreeToGraph(rootMethodNode, 2);
+        //TODO Pass detailLevel through execute
+        //TODO Then pass through methodNodeTreeToGraph()
 
 		CouplingVisualizerView.graph.setLayoutAlgorithm(new SpringLayoutAlgorithm(
 				LayoutStyles.NO_LAYOUT_NODE_RESIZING), true);

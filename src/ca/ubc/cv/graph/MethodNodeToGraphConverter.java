@@ -5,14 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.draw2d.Label;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.part.ViewPart;
 import org.eclipse.zest.core.widgets.Graph;
 import org.eclipse.zest.core.widgets.GraphConnection;
 import org.eclipse.zest.core.widgets.GraphContainer;
@@ -20,28 +16,27 @@ import org.eclipse.zest.core.widgets.GraphNode;
 import org.eclipse.zest.core.widgets.ZestStyles;
 import org.eclipse.zest.layouts.LayoutStyles;
 import org.eclipse.zest.layouts.algorithms.SpringLayoutAlgorithm;
-import org.eclipse.zest.layouts.algorithms.TreeLayoutAlgorithm;
 
 import ca.ubc.cv.treebuilder.MethodNode;
 
-public class MethodNodeToGraphConverter extends ViewPart {
-	private Graph graph;
+public class MethodNodeToGraphConverter {
 
 	public Map<MethodNode, GraphNode> methodToGraphMap;
 	public Map<String, GraphContainer> classToGraphMap;
 
 	public static final int CLASS_ONLY = 1;
-	public static final int CLASS_METHOD = 2; // Default
+	public static final int CLASS_METHOD = 2; 
 	public static final int CLASS_METHOD_PARAMETERS = 3;
 	
-	private Composite parent; 
+	private Composite parent;
+	private Graph graph; 
 
-	public MethodNodeToGraphConverter(Composite parent) {
+	public MethodNodeToGraphConverter(Composite parent, Graph graph) {
+		this.graph = graph; 
 		this.parent = parent; 
 	}
 	
 	public Graph methodNodeTreeToGraph(MethodNode rootNode, int detailLevel) {
-		graph = new Graph(parent, SWT.NONE);
 		methodToGraphMap = new HashMap<MethodNode, GraphNode>();
 		classToGraphMap = new HashMap<String, GraphContainer>(); 
 
@@ -128,11 +123,11 @@ public class MethodNodeToGraphConverter extends ViewPart {
 		return gc; 
 	}
 
-	public void createPartControl(Composite parent) {
-		this.parent = parent; 
-		graph = methodNodeTreeToGraph(example(), 1);
-		graph.setLayoutAlgorithm(new SpringLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING), true);
-	}
+//	public void createPartControl(Composite parent) {
+//		this.parent = parent; 
+//		graph = methodNodeTreeToGraph(example(), 1);
+//		graph.setLayoutAlgorithm(new SpringLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING), true);
+//	}
 	
 	
 	public MethodNode example() {

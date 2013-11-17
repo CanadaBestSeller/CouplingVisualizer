@@ -22,10 +22,6 @@ import org.eclipse.ui.IEditorActionDelegate;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.zest.core.widgets.Graph;
-import org.eclipse.zest.core.widgets.GraphNode;
-
-import ca.ubc.cv.views.CouplingVisualizerView;
 
 public class IMethodExtractor implements IObjectActionDelegate, IMenuCreator,
 		IEditorActionDelegate {
