@@ -14,64 +14,54 @@ import org.eclipse.zest.layouts.algorithms.SpringLayoutAlgorithm;
 import org.eclipse.zest.layouts.algorithms.TreeLayoutAlgorithm;
 
 public class CouplingVisualizerView extends ViewPart {
-  public static final String ID = "couplingvisualizer.views.CouplingVisualizer";
-  private Graph graph;
-  private int layout = 1;
+	public static final String ID = "ca.ubc.cv.views.couplingvisualizerview";
+	public static Graph graph;
+	public static Composite parent;
+	private static int layout = 1;
 
-  public void createPartControl(Composite parent) {
-    // Graph will hold all other objects
-    graph = new Graph(parent, SWT.NONE);
-    // now a few nodes
-    GraphNode node1 = new GraphNode(graph, SWT.NONE, "Jim");
-    GraphNode node2 = new GraphNode(graph, SWT.NONE, "Jack");
-    GraphNode node3 = new GraphNode(graph, SWT.NONE, "Joe");
-    GraphNode node4 = new GraphNode(graph, SWT.NONE, "Bill");
-    // Lets have a directed connection
-    new GraphConnection(graph, ZestStyles.CONNECTIONS_DIRECTED, node1,
-        node2);
-    // Lets have a dotted graph connection
-    new GraphConnection(graph, ZestStyles.CONNECTIONS_DOT, node2, node3);
-    // Standard connection
-    new GraphConnection(graph, SWT.NONE, node3, node1);
-    // Change line color and line width
-    GraphConnection graphConnection = new GraphConnection(graph, SWT.NONE,
-        node1, node4);
-    graphConnection.changeLineColor(parent.getDisplay().getSystemColor(SWT.COLOR_GREEN));
-    // Also set a text
-    graphConnection.setText("This is a text");
-    graphConnection.setHighlightColor(parent.getDisplay().getSystemColor(SWT.COLOR_RED));
-    graphConnection.setLineWidth(3);
+	public void createPartControl(Composite compositeParent) {
+		// Graph will hold all other objects
+		graph = new Graph(compositeParent, SWT.NONE);
+		parent = compositeParent;
+	}
 
-    graph.setLayoutAlgorithm(new SpringLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING), true);
-    // Selection listener on graphConnect or GraphNode is not supported
-    // see https://bugs.eclipse.org/bugs/show_bug.cgi?id=236528
-    graph.addSelectionListener(new SelectionAdapter() {
-      @Override
-      public void widgetSelected(SelectionEvent e) {
-        System.out.println(e);
-      }
+	public static void setLayoutManager() {
+		switch (layout) {
+		case 1:
+			graph.setLayoutAlgorithm(new TreeLayoutAlgorithm(
+					LayoutStyles.NO_LAYOUT_NODE_RESIZING), true);
+			layout++;
+			break;
+		case 2:
+			graph.setLayoutAlgorithm(new SpringLayoutAlgorithm(
+					LayoutStyles.NO_LAYOUT_NODE_RESIZING), true);
+			layout = 1;
+			break;
 
-    });
-  }
+		}
 
-  public void setLayoutManager() {
-    switch (layout) {
-    case 1:
-      graph.setLayoutAlgorithm(new TreeLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING), true);
-      layout++;
-      break;
-    case 2:
-      graph.setLayoutAlgorithm(new SpringLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING), true);
-      layout = 1;
-      break;
+	}
 
-    }
+	public static void clearGraph() {
 
-  }
+		// remove all the connections
+		Object[] objects = graph.getConnections().toArray();
 
-  
-/** * Passing the focus request to the viewer's control. */
+		for (int x = 0; x < objects.length; x++) {
+			((GraphConnection) objects[x]).dispose();
+		}
 
-  public void setFocus() {
-  }
-} 
+		// remove all the nodes
+		objects = graph.getNodes().toArray();
+
+		for (int x = 0; x < objects.length; x++) {
+			((GraphNode) objects[x]).dispose();
+		}
+
+	}
+
+	/** * Passing the focus request to the viewer's control. */
+
+	public void setFocus() {
+	}
+}
