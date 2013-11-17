@@ -25,6 +25,7 @@ public class MethodNode {
 	private List<MethodNode> callersList; 
 	private List<String> parametersList;
 	private String returnType; 
+	private String javaDocs; 
 	
 	public MethodNode() {
 		callersList = new ArrayList<MethodNode>(); 
@@ -42,6 +43,23 @@ public class MethodNode {
 	}
 	public void setMethodName(String methodName) {
 		this.methodName = methodName; 
+	}
+	public String getSimpleMethodName() {
+		return methodName + "()";
+	}
+	public String getDetailedMethodName() {
+		String mnName = methodName + "(";
+		List<String> params = this.getParameters();
+		for (int i = 0; i < params.size(); i++) {
+			if (i != params.size() - 1) {
+				mnName += params.get(i) + ", "; 
+			}
+			else {
+				mnName += params.get(i); 
+			}
+		}
+		mnName += ") : " + this.getReturnType();
+		return mnName; 
 	}
 	public String getClassName() {
 		return className;
@@ -64,7 +82,11 @@ public class MethodNode {
 	public void setParameters(List<String> parameters) {
 		this.parametersList = parameters;
 	}
+	public void addParameter(String parameter) {
+		this.parametersList.add(parameter);
+	}
 	public String getReturnType() {
+		if (returnType == null) return "void"; 
 		return returnType; 
 	}
 	public void setReturnType(String returnType) {
@@ -72,6 +94,12 @@ public class MethodNode {
 	}
 	public void addParameterType(String parameterType){
 		this.parametersList.add(parameterType);
+	}
+	public void setJavaDocs(String javaDocs) {
+		this.javaDocs = javaDocs; 
+	}
+	public String getJavaDocs() {
+		return javaDocs; 
 	}
 	
 	@Override

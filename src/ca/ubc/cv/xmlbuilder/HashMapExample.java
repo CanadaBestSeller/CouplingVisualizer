@@ -1,12 +1,15 @@
 package ca.ubc.cv.xmlbuilder;
+
 import java.util.*;
+import java.util.Map.Entry;
 
 import ca.ubc.cv.treebuilder.MethodNode;
 
 public class HashMapExample{
 
-    private HashMap<String, List<MethodNode> > methodNodes;
+    public HashMap<String, List<MethodNode> > methodNodes;
 
+    
     public static void main(String[] args) {
         new HashMapExample();
     }
@@ -16,56 +19,38 @@ public class HashMapExample{
     	// HashMap of the method nodes
         methodNodes = new HashMap<String, List<MethodNode>>();
         
-        HashMap<String, List<MethodNode>> parrotMethodsMap = null;
-        HashMap<String, List<MethodNode>> utilityMethodsMap = null;
-        HashMap<String, List<MethodNode>> mainMethodsMap = null;
-        HashMap<String, List<MethodNode>> zooMethodsMap = null;
-        HashMap<String, List<MethodNode>> systemMethodsMap = null;        
-        
-        MethodNode fly = null;
-        MethodNode constructor = null;
-        MethodNode greet = null;
-        MethodNode main = null;
-        MethodNode breedParrot = null;
-        MethodNode println = null;
+        MethodNode fly = new MethodNode();
+        MethodNode constructor = new MethodNode();
+        MethodNode greet = new MethodNode();
+        MethodNode main = new MethodNode();
+        MethodNode breedParrot = new MethodNode();
+        MethodNode println = new MethodNode();
                 
         // Class Parrot, fly() and constructor 
         fly.setClassName("Parrot");
 		fly.setMethodName("fly");
 		
 		constructor.setClassName("Parrot");
-		constructor.setMethodName("constructor");
+		constructor.setMethodName("<<Constructor>>");
 		
-		System.out.println(fly);
-				 
 		// Class Utility, greet()
 		greet.setClassName("Utility");
 		greet.setMethodName("greet");
-		
-		System.out.println(greet);	
 		
 		// Class Main, main() 
 		main.setClassName("Main");
 		main.setMethodName("main");
 		
-		System.out.println(main); 
-		
 		// Class Zoo, breedParrot
 		breedParrot.setClassName("Zoo");
 		breedParrot.setMethodName("breedParrot");
-		
-		System.out.println(breedParrot);
 		
 		// Class java.lang.System, println
 		println.setClassName("java.lang.System");
 		println.setMethodName("println");
 		
-		System.out.println(println);
-		
 		// List of Callers for fly()
 		List<MethodNode> flyCallers = new ArrayList<MethodNode>();
-		flyCallers = null;
-		
 		fly.setCallerList(flyCallers);   
 		 
 		
@@ -73,7 +58,6 @@ public class HashMapExample{
 		// breedParrot from Zoo
 		List<MethodNode> constructorCallers = new ArrayList<MethodNode>();
 		constructorCallers.add(breedParrot);
-		
 		constructor.setCallerList(constructorCallers);   
 		 		
 		// List of Callers for greet() 
@@ -87,15 +71,12 @@ public class HashMapExample{
 		// List of Callers for main()
 		// none   
 		List<MethodNode> mainCallers = new ArrayList<MethodNode>();
-		mainCallers = null;
-		
 		main.setCallerList(mainCallers);   
 				
 		// List of Callers for breedParrot()
 		// main() from Main 
 		List<MethodNode> breedParrotCallers = new ArrayList<MethodNode>();
 		breedParrotCallers.add(main); 
-		
 		breedParrot.setCallerList(breedParrotCallers);   	
 		
 		// List of Callers for println()
@@ -103,7 +84,7 @@ public class HashMapExample{
 		List<MethodNode> printlnCallers = new ArrayList<MethodNode>();
 		printlnCallers.add(greet);
 		printlnCallers.add(fly);
-		
+		printlnCallers.add(main);
 		println.setCallerList(printlnCallers);  
 		
 		// assemble the list of MethodNodes for each class
@@ -122,15 +103,30 @@ public class HashMapExample{
 		
 		List<MethodNode> systemMethods = new ArrayList<MethodNode>();
 		systemMethods.add(println); 
-		  
-		// put into HashMap
-		parrotMethodsMap.put( "Parrot", parrotMethods);
-		utilityMethodsMap.put("Utility", utilityMethods);
-		mainMethodsMap.put("Main", mainMethods);
-		zooMethodsMap.put("Zoo", zooMethods);
-		systemMethodsMap.put("java.lang.System", systemMethods);
 		
+		methodNodes.put("Utility", utilityMethods);
+		methodNodes.put("Parrot", parrotMethods);
+		methodNodes.put("Main", mainMethods);
+		methodNodes.put("Zoo", zooMethods);
+		methodNodes.put("java.lang.System", systemMethods);
+		
+		for (Map.Entry<String, List<MethodNode>> mapEntry : methodNodes.entrySet()) {
+			printClass(mapEntry);
+			printMethods(mapEntry);
+		}
+		System.out.println();
+	
     }
 
+    private void printClass(Map.Entry<String, List<MethodNode>> mapEntry) {
+    	System.out.println(mapEntry.getKey());
+    }
+
+    private void printMethods(Map.Entry<String, List<MethodNode>> mapEntry) {
+    	for (MethodNode mn : mapEntry.getValue()) {
+    		System.out.println("\t" + mn.getMethodName());
+    	}
+	}
+    
 	
 }

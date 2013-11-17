@@ -27,7 +27,6 @@ public class MethodTreeBuilder {
 	 * would use foo1. Currently, it doesn't check for that. 
 	 */
 	public MethodNode constructMethodTree(IMethod iMethod) {
-
 		MethodNode methodNode = constructMethodNode(iMethod);
 		Set<IMethod> iMethodSet = new HashSet<IMethod>();   
         iMethodSet = this.getCallersOf(iMethod);

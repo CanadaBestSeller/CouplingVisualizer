@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import org.eclipse.swt.internal.ole.win32.VARIANT;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
