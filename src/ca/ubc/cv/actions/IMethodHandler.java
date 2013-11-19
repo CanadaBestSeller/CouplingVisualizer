@@ -26,7 +26,7 @@ public class IMethodHandler {
         		CouplingVisualizerView.parent,
         		CouplingVisualizerView.graph);
         
-        mngc.methodNodeTreeToGraph(rootMethodNode, 2);
+        mngc.methodNodeTreeToGraph(rootMethodNode, 3);
         //TODO Pass detailLevel through execute
         //TODO Then pass through methodNodeTreeToGraph()
 
