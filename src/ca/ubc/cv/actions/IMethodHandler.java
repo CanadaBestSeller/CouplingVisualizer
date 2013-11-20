@@ -14,19 +14,16 @@ import ca.ubc.cv.views.CouplingVisualizerView;
 public class IMethodHandler {
 
 	public static void execute(IMethod m) {
-		System.out.println("IMETHOD name is: " + m.toString());
-		
 	    CouplingVisualizerView.clearGraph();
 	    
 	    MethodTreeBuilder chg = new MethodTreeBuilder();
         MethodNode rootMethodNode = chg.constructMethodTree(m);
-        System.out.println(rootMethodNode.subTreeToString(0)); 
         
         MethodNodeToGraphConverter mngc = new MethodNodeToGraphConverter(
         		CouplingVisualizerView.parent,
         		CouplingVisualizerView.graph);
         
-        mngc.methodNodeTreeToGraph(rootMethodNode, 2);
+        mngc.methodNodeTreeToGraph(rootMethodNode, MethodNodeToGraphConverter.CLASS_METHOD);
         //TODO Pass detailLevel through execute
         //TODO Then pass through methodNodeTreeToGraph()
 

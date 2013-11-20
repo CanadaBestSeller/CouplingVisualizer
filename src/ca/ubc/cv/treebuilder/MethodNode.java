@@ -95,6 +95,32 @@ public class MethodNode {
 	public void addParameterType(String parameterType){
 		this.parametersList.add(parameterType);
 	}
+	public String getParametersAndReturnTypeInfo() {
+		String methodInfo = "";
+		if (this.parametersList.isEmpty()) {
+			methodInfo += this.getSimpleMethodName() + " does not take in any parameters.";
+		}
+		else {
+			methodInfo += this.getSimpleMethodName() + " takes in the follwing parameter(s): ";
+			for (int i = 0; i < this.parametersList.size(); i++) {
+				if (i == this.parametersList.size() - 1) {
+					methodInfo += this.parametersList.get(i);
+				}
+				else {
+					methodInfo += this.parametersList.get(i) + ", ";
+				}
+			}
+		}
+		
+		methodInfo += "\n\n";
+		if (this.getReturnType().equals("void")){
+			methodInfo += this.getSimpleMethodName() + " returns nothing";
+		}
+		else {
+			methodInfo += this.getSimpleMethodName() + " returns the following: " + this.getReturnType(); 
+		}
+		return methodInfo; 
+	}
 	public void setJavaDocs(String javaDocs) {
 		this.javaDocs = javaDocs; 
 	}
@@ -125,6 +151,17 @@ public class MethodNode {
 			
 		return val; 
 		
+	}
+	@Override
+	public boolean equals(Object obj) {
+		MethodNode mnobj = (MethodNode) obj;
+		
+		if(!this.getMethodName().equals(mnobj.getMethodName())) return false;
+		if(!this.getClassName().equals(mnobj.getClassName())) return false; 
+		if(!this.getReturnType().equals(mnobj.getReturnType())) return false;
+		if(!this.getParameters().equals(mnobj.getParameters())) return false;
+		
+		return true; 
 	}
 	
 	/*

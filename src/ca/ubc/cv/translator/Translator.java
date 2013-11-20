@@ -14,7 +14,8 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import ca.ubc.cv.structs.MethodNode;
+import ca.ubc.cv.treebuilder.MethodNode;
+
 
 /**
  * Example Structure of XML tree:
@@ -85,7 +86,7 @@ public class Translator {
 		classElement.appendChild(doc.createTextNode(methodNode.getClassName()));
 		degreeElement.appendChild(doc.createTextNode(Integer.toString(methodNode.getDepth())));
 		
-		for (Class<?> parameterClass : methodNode.getParameters()) {
+		for (String parameterClass : methodNode.getParameters()) {
 			Element parameterElement = doc.createElement(XMLTags.PARAMETER_NAME);
 			parameterElement.appendChild(doc.createTextNode(parameterClass.toString()));
 			parametersElement.appendChild(parameterElement);

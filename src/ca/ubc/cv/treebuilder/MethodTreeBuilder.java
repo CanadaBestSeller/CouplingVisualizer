@@ -13,6 +13,13 @@ import org.eclipse.jdt.internal.corext.callhierarchy.MethodWrapper;
 
 
 @SuppressWarnings("restriction")
+/**
+ * MethodTreeBuilder is responsible for constructing
+ * the call hierarchy of a method, and then abstracting 
+ * it into a MethodNode (which will eventually be turned
+ * into a Graph object).  
+ *
+ */
 public class MethodTreeBuilder {
 	
 	private Set<MethodNode> methodNodeSet; 
@@ -27,32 +34,34 @@ public class MethodTreeBuilder {
 	 * would use foo1. Currently, it doesn't check for that. 
 	 */
 	public MethodNode constructMethodTree(IMethod iMethod) {
-		MethodNode methodNode = constructMethodNode(iMethod);
-		Set<IMethod> iMethodSet = new HashSet<IMethod>();   
+		MethodNode methodNode = this.constructMethodNode(iMethod);
+		MethodNode checkMethodNode = this.findMethodNode(methodNode);
+        
+		if (checkMethodNode != null){
+        	return checkMethodNode;  
+        }
+        
+        Set<IMethod> iMethodSet = new HashSet<IMethod>();   
         iMethodSet = this.getCallersOf(iMethod);
-
         methodNodeSet.add(methodNode); 
 		
 		for (IMethod im : iMethodSet) {
-			MethodNode mn = constructMethodTree(im); 
-			methodNode.addCaller(mn); 
+			MethodNode mn = this.constructMethodTree(im);
+			methodNode.addCaller(mn);
 		}
 		
 		return methodNode; 
 	}
 	
-	/*
-	 * Temporary method. Used to determine if m already has
-	 * n has a child. 
-	 * 
-	 * TODO: Migrate this method over to MethodNode. THat's where
-	 * it belongs.
-	 * TODO: Actually, maybe not. Think about this some more. 
-	 */
-	public boolean contains(MethodNode m, MethodNode n) {
-		return false; 
+	public MethodNode findMethodNode(MethodNode mn) {
+		for (MethodNode currentMn : methodNodeSet) {
+			if (currentMn.equals(mn)){
+				return currentMn;
+			}
+		}
+		
+		return null; 
 	}
-	
 	
 	/*
 	 * Constructs a MethodNode from the given IMethod
