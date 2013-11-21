@@ -139,7 +139,7 @@ public class MethodNodeToGraphConverter {
 		}
 		
 		//this.setDetailLevel(1); //Testing purposes. TODO: Change this
-		this.setDetailLevel(4);
+		//this.setDetailLevel(4);
 		return graph; 
 	}
 
