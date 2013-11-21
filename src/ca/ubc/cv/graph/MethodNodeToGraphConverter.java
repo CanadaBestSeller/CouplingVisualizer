@@ -105,11 +105,11 @@ public class MethodNodeToGraphConverter {
 		//we're set to CLASS_ONLY, we certainly want the detail
 		//level of the root to be at least CLASS_METHOD; 
 		int rootDetailLevel;
-		if (detailLevel == CLASS_METHOD_PARAMETERS) {
-			rootDetailLevel = CLASS_METHOD_PARAMETERS;
+		if (detailLevel == CLASS_ONLY) {
+			rootDetailLevel = CLASS_METHOD;
 		}
 		else {
-			rootDetailLevel = CLASS_METHOD; 
+			rootDetailLevel = detailLevel; 
 		}
 
 		GraphNode rootGraphNode = this.getGraphNode(rootNode, rootDetailLevel, 0);
@@ -142,6 +142,7 @@ public class MethodNodeToGraphConverter {
 		//this.setDetailLevel(1); //Testing purposes. TODO: Change this
 		//this.setDetailLevel(4);
 		currentDepthLevel = max_depth;
+		//this.setDetailLevel(CLASS_ONLY); //Testing
 		return graph; 
 	}
 
@@ -183,6 +184,7 @@ public class MethodNodeToGraphConverter {
 				Label label = new Label(fromMn.getClassName() + " uses " + 
 						originMn.getSimpleMethodName()); 
 				gc.setTooltip(label);
+				graphConnectionLabels.put(gc, originMn.getParametersAsString());
 			}
 			//Else, make the directed connections append to the
 			//method ovals. 
@@ -202,9 +204,9 @@ public class MethodNodeToGraphConverter {
 				Label label = new Label(fromMn.getSimpleMethodName() + " uses " 
 						+ originMn.getSimpleMethodName());
 				gc.setTooltip(label);
+				graphConnectionLabels.put(gc, originMn.getParametersAsString());
 			}
 			gc.changeLineColor(parent.getDisplay().getSystemColor(SWT.COLOR_BLACK));
-			graphConnectionLabels.put(gc, originMn.getParametersAsString());
 			graphConnectionDepths.put(gc, depth); 
 
 			//Cycle check
@@ -321,7 +323,10 @@ public class MethodNodeToGraphConverter {
 			for (Map.Entry<MethodNode, GraphNode> nodeEntry : methodToGraphNodeMap.entrySet()) {
 				nodeEntry.getValue().setText(nodeEntry.getKey().getMethodNameAndReturnType());
 			}
+			System.out.println("Size: " + graphConnectionLabels.entrySet().size());
+			System.out.println("Depth: " + currentDepthLevel);
 			for (Map.Entry<GraphConnection, String> gcEntry : graphConnectionLabels.entrySet()) {
+				System.out.println("Check: " + gcEntry.getValue());
 				gcEntry.getKey().setText(gcEntry.getValue()); 
 			}
 		}
@@ -354,17 +359,16 @@ public class MethodNodeToGraphConverter {
 	 * @param depth
 	 */
 	public void setDepthLevel(int depth) {
-		int level = depth; 
-
 		if (depth > max_depth) {
-			level = max_depth;
+			return;
 		}
 		if (depth < 0) {
-			level = 0; 
+			return;  
 		}
+		currentDepthLevel = depth; 
 
 		for (Map.Entry<GraphConnection, Integer> connectionEntry : graphConnectionDepths.entrySet()) {
-			if (connectionEntry.getValue() <= level) {
+			if (connectionEntry.getValue() <= depth) {
 				connectionEntry.getKey().setVisible(true);
 			}
 			else {
@@ -372,7 +376,7 @@ public class MethodNodeToGraphConverter {
 			}
 		}
 		for (Map.Entry<GraphContainer, Integer> containerEntry : graphContainersDepths.entrySet()) {
-			if (containerEntry.getValue() <= level) {
+			if (containerEntry.getValue() <= depth) {
 				containerEntry.getKey().setVisible(true);
 			}
 			else {
@@ -380,7 +384,7 @@ public class MethodNodeToGraphConverter {
 			}
 		}
 		for (Map.Entry<GraphNode, Integer> nodeEntry : graphNodeDepths.entrySet()) {
-			if (nodeEntry.getValue() <= level) {
+			if (nodeEntry.getValue() <= depth) {
 				nodeEntry.getKey().setVisible(true);
 			}
 			else {
