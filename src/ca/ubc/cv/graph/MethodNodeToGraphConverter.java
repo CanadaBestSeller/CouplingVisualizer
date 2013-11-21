@@ -142,7 +142,15 @@ public class MethodNodeToGraphConverter {
 		//this.setDetailLevel(1); //Testing purposes. TODO: Change this
 		//this.setDetailLevel(4);
 		//this.setDetailLevel(CLASS_ONLY); //Testing
+		
 		currentDepthLevel = max_depth;
+		if (max_depth > 2) {
+			currentDepthLevel = 2;  
+		}
+		else {
+			currentDepthLevel = max_depth; 
+		}
+		this.setDepthLevel(currentDepthLevel);
 		return graph; 
 	}
 
