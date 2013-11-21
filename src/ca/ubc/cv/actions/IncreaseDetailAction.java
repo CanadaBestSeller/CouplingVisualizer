@@ -13,7 +13,7 @@ import ca.ubc.cv.views.CouplingVisualizerView;
 public class IncreaseDetailAction extends Action {
 
 	public IncreaseDetailAction() {
-		setToolTipText("Increases level of detail.");
+		setToolTipText("More Details");
 		Bundle bundle = Platform.getBundle("CouplingVisualizer");
 		URL fullPathString = BundleUtility.find(bundle, "icons/zoom_in.png");
 		setImageDescriptor(ImageDescriptor.createFromURL(fullPathString));

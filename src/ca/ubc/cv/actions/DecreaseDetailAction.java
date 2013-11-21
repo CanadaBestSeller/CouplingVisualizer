@@ -13,7 +13,7 @@ import ca.ubc.cv.views.CouplingVisualizerView;
 public class DecreaseDetailAction extends Action {
 
 	public DecreaseDetailAction() {
-		setToolTipText("Decreases level of detail.");
+		setToolTipText("Less Details");
 		Bundle bundle = Platform.getBundle("CouplingVisualizer");
 		URL fullPathString = BundleUtility.find(bundle, "icons/zoom_out.png");
 		setImageDescriptor(ImageDescriptor.createFromURL(fullPathString));

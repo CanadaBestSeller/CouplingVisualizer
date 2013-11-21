@@ -19,6 +19,7 @@ import org.eclipse.ui.PlatformUI;
 
 import ca.ubc.cv.treebuilder.MethodNode;
 import ca.ubc.cv.treebuilder.MethodTreeBuilder;
+import ca.ubc.cv.views.CouplingVisualizerView;
 
 
 public class MethodTreeCreatorAction implements IObjectActionDelegate {
@@ -43,22 +44,14 @@ public class MethodTreeCreatorAction implements IObjectActionDelegate {
 	 * @see IActionDelegate#run(IAction)
 	 */
 	public void run(IAction action) {
-		System.out.println("Running it now");
-		
 		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+
 	    if (window != null) {
 	        IStructuredSelection selection = (IStructuredSelection) window.getSelectionService().getSelection();
 	        Object firstElement = selection.getFirstElement();
 
 	        IMethod iMethod = (IMethod)firstElement; 
-	        
-	        MethodTreeBuilder chg = new MethodTreeBuilder();
-	        MethodNode rootMethodNode = chg.constructMethodTree(iMethod);
-	        
-
-	        System.out.println("Checking FanIn for Method : " + iMethod.toString());
-	        System.out.println(rootMethodNode.subTreeToString(0));
-
+	        IMethodHandler.execute(iMethod);
 	    }
 	}
 

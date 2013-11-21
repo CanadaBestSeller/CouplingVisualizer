@@ -13,9 +13,9 @@ import ca.ubc.cv.views.CouplingVisualizerView;
 public class IncreaseDepthAction extends Action {
 
 	public IncreaseDepthAction() {
-		setToolTipText("Increases level of depth.");
+		setToolTipText("Increase Depth");
 		Bundle bundle = Platform.getBundle("CouplingVisualizer");
-		URL fullPathString = BundleUtility.find(bundle, "icons/expand.png");
+		URL fullPathString = BundleUtility.find(bundle, "icons/increase_depth.png");
 		setImageDescriptor(ImageDescriptor.createFromURL(fullPathString));
 	}
 

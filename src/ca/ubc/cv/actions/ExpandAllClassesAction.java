@@ -10,17 +10,17 @@ import org.osgi.framework.Bundle;
 
 import ca.ubc.cv.views.CouplingVisualizerView;
 
-public class DecreaseDepthAction extends Action {
+public class ExpandAllClassesAction extends Action {
 
-	public DecreaseDepthAction() {
-		setToolTipText("Decrease Depth");
+	public ExpandAllClassesAction() {
+		setToolTipText("Expand All");
 		Bundle bundle = Platform.getBundle("CouplingVisualizer");
-		URL fullPathString = BundleUtility.find(bundle, "icons/decrease_depth.png");
+		URL fullPathString = BundleUtility.find(bundle, "icons/expand.png");
 		setImageDescriptor(ImageDescriptor.createFromURL(fullPathString));
 	}
 
 	@Override
 	public void run() {
-		CouplingVisualizerView.mngc.decreaseDepthLevel();
+		CouplingVisualizerView.mngc.expandAllWindows();
 	}
 }

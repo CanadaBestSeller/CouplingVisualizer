@@ -10,7 +10,7 @@
       </category>
       <view
             name="Coupling Visualizer"
-            icon="icons/cv.gif"
+            icon="icons/cv.png"
             category="CouplingVisualizer"
             class="ca.ubc.cv.views.CouplingVisualizerView"
             id="ca.ubc.cv.views.CouplingVisualizerView">
@@ -40,26 +40,11 @@
       <objectContribution
             objectClass="org.eclipse.jdt.core.IMethod"
             id="ca.ubc.cv.popupMenus">
-         <menu
-               label="Coupling Visualizer"
-               path="additions"
-               id="ca.ubc.cv.testSubMenu">
-            <separator
-                  name="group1">
-            </separator>
-         </menu>
          <action
-               label="Show UML Diagram"
+               label="Visualize Coupling"
                class="ca.ubc.cv.actions.MethodTreeCreatorAction"
-               menubarPath="ca.ubc.cv.testSubMenu/group1"
                enablesFor="1"
-               id="ca.ubc.cv.showUmlDiagram">
-         </action>
-         <action
-               label="Show Method Dependencies/Dependents"
-               class="ca.ubc.cv.actions.MethodTreeCreatorAction"
-               menubarPath="ca.ubc.cv.testSubMenu/group1"
-               enablesFor="1"
+               icon="icons/cv.png"
                id="ca.ubc.cv.showMethodDependencies">
          </action>
       </objectContribution>

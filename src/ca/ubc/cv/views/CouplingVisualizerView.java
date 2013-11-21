@@ -11,10 +11,7 @@ import org.eclipse.zest.layouts.LayoutStyles;
 import org.eclipse.zest.layouts.algorithms.SpringLayoutAlgorithm;
 import org.eclipse.zest.layouts.algorithms.TreeLayoutAlgorithm;
 
-import ca.ubc.cv.actions.DecreaseDepthAction;
-import ca.ubc.cv.actions.DecreaseDetailAction;
-import ca.ubc.cv.actions.IncreaseDepthAction;
-import ca.ubc.cv.actions.IncreaseDetailAction;
+import ca.ubc.cv.actions.*;
 import ca.ubc.cv.graph.MethodNodeToGraphConverter;
 
 public class CouplingVisualizerView extends ViewPart {
@@ -32,6 +29,8 @@ public class CouplingVisualizerView extends ViewPart {
 		
 		// Add buttons
 		IActionBars bars = getViewSite().getActionBars();
+		bars.getToolBarManager().add(new CollapseAllClassesAction());
+		bars.getToolBarManager().add(new ExpandAllClassesAction());
 		bars.getToolBarManager().add(new IncreaseDepthAction());
 		bars.getToolBarManager().add(new DecreaseDepthAction());
 		bars.getToolBarManager().add(new IncreaseDetailAction());
