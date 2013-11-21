@@ -10,7 +10,7 @@
       </category>
       <view
             name="Coupling Visualizer"
-            icon="icons/sample.gif"
+            icon="icons/cv.gif"
             category="CouplingVisualizer"
             class="ca.ubc.cv.views.CouplingVisualizerView"
             id="ca.ubc.cv.views.CouplingVisualizerView">

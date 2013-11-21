@@ -2,6 +2,7 @@ package ca.ubc.cv.views;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.zest.core.widgets.Graph;
 import org.eclipse.zest.core.widgets.GraphConnection;
@@ -10,9 +11,16 @@ import org.eclipse.zest.layouts.LayoutStyles;
 import org.eclipse.zest.layouts.algorithms.SpringLayoutAlgorithm;
 import org.eclipse.zest.layouts.algorithms.TreeLayoutAlgorithm;
 
+import ca.ubc.cv.actions.DecreaseDepthAction;
+import ca.ubc.cv.actions.DecreaseDetailAction;
+import ca.ubc.cv.actions.IncreaseDepthAction;
+import ca.ubc.cv.actions.IncreaseDetailAction;
+import ca.ubc.cv.graph.MethodNodeToGraphConverter;
+
 public class CouplingVisualizerView extends ViewPart {
 	public static final String ID = "ca.ubc.cv.views.couplingvisualizerview";
 	public static Graph graph;
+	public static MethodNodeToGraphConverter mngc;
 	public static Composite parent;
 	private static int layout = 1;
 
@@ -20,6 +28,14 @@ public class CouplingVisualizerView extends ViewPart {
 		// Graph will hold all other objects
 		graph = new Graph(compositeParent, SWT.NONE);
 		parent = compositeParent;
+		mngc = new MethodNodeToGraphConverter(CouplingVisualizerView.parent, CouplingVisualizerView.graph);
+		
+		// Add buttons
+		IActionBars bars = getViewSite().getActionBars();
+		bars.getToolBarManager().add(new IncreaseDepthAction());
+		bars.getToolBarManager().add(new DecreaseDepthAction());
+		bars.getToolBarManager().add(new IncreaseDetailAction());
+		bars.getToolBarManager().add(new DecreaseDetailAction());
 	}
 
 	public static void setLayoutManager() {
