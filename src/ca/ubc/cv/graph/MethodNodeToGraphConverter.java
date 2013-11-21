@@ -141,8 +141,8 @@ public class MethodNodeToGraphConverter {
 		
 		//this.setDetailLevel(1); //Testing purposes. TODO: Change this
 		//this.setDetailLevel(4);
-		currentDepthLevel = max_depth;
 		//this.setDetailLevel(CLASS_ONLY); //Testing
+		currentDepthLevel = max_depth;
 		return graph; 
 	}
 
@@ -347,6 +347,29 @@ public class MethodNodeToGraphConverter {
 	public void decreaseDetailLevel() {
 		setDetailLevel(currentDetailLevel - 1);
 	}
+	public void collaspseAllWindows() {
+		for (GraphContainer gc : classToGraphContainerMap.values()){
+			gc.close(true); 
+		}
+	}
+	public void expandAllWindows() {
+		for (GraphContainer gc : classToGraphContainerMap.values()){
+			gc.open(true);
+		}
+	}
+	public boolean canIncreaseDepthLevel() {
+		return (currentDepthLevel != max_depth);
+	}
+	public boolean canDecreaseDepthLevel() {
+		return (currentDepthLevel != 0);
+	}
+	public boolean canIncreaseDetailLevel() {
+		return (currentDetailLevel != CLASS_METHOD_PARAMETERS_TWO);
+	}
+	public boolean canDecreaseDetailLevel() {
+		return (currentDetailLevel != CLASS_ONLY);
+	}
+
 
 	/**
 	 * Used to alter depth of what graph objects should be seen. For example,
