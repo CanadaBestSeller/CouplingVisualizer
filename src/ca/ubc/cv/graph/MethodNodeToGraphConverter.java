@@ -158,12 +158,12 @@ public class MethodNodeToGraphConverter {
 		GraphNode toGraphNode;
 		GraphNode fromGraphNode;
 
-		if (max_depth < depth) {
-			max_depth = depth; 
-		}
-
 		for (MethodNode fromMn : originMn.getCallerList()) {
 			boolean exist = false;
+			
+			if (max_depth < depth) {
+				max_depth = depth; 
+			}
 
 			//If CLASS_ONLY is toggled, then make the directed
 			//connections append to the class rectangles
