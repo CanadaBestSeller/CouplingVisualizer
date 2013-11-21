@@ -48,16 +48,17 @@
                id="ca.ubc.cv.showMethodDependencies">
          </action>
       </objectContribution>
-      <viewerContribution
-            id="ca.ubc.cv.addToConcernEditorContribution"
-            targetID="org.eclipse.jdt.ui.CompilationUnitEditor.EditorContext">
+      <objectContribution
+            objectClass="org.eclipse.ui.IEditorInput"
+            nameFilter="*.*"
+            id="ca.ubc.cv.popupMenus1">
          <action
+               label="Visualize Coupling"
                class="ca.ubc.cv.actions.IMethodExtractor"
-               id="ca.ubc.cv.couplingVisualizerMenuForEditor"
-               label="CouplingVisualizer"
-               menubarPath="additions"
-               style="pulldown"/>
-      </viewerContribution>
+               icon="icons/cv.png"
+               id="ca.ubc.cv.imethodextractor">
+         </action>
+      </objectContribution>
    </extension>
 	
 </plugin>

@@ -21,7 +21,6 @@ import ca.ubc.cv.treebuilder.MethodNode;
 import ca.ubc.cv.treebuilder.MethodTreeBuilder;
 import ca.ubc.cv.views.CouplingVisualizerView;
 
-
 public class MethodTreeCreatorAction implements IObjectActionDelegate {
 
 	private Shell shell;
@@ -59,8 +58,5 @@ public class MethodTreeCreatorAction implements IObjectActionDelegate {
 	 * @see IActionDelegate#selectionChanged(IAction, ISelection)
 	 */
 	public void selectionChanged(IAction action, ISelection selection) {
-		
-		
 	}
-
 }
