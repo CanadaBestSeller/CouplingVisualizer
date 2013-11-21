@@ -21,6 +21,13 @@ public class CouplingVisualizerView extends ViewPart {
 	public static Composite parent;
 	private static int layout = 1;
 
+	public static CollapseAllClassesAction 	ca = new CollapseAllClassesAction();
+	public static ExpandAllClassesAction 	ea = new ExpandAllClassesAction();
+	public static IncreaseDepthAction 		iha = new IncreaseDepthAction();
+	public static DecreaseDepthAction 		dha = new DecreaseDepthAction();
+	public static IncreaseDetailAction 		ila = new IncreaseDetailAction();
+	public static DecreaseDetailAction 		dla = new DecreaseDetailAction();
+
 	public void createPartControl(Composite compositeParent) {
 		// Graph will hold all other objects
 		graph = new Graph(compositeParent, SWT.NONE);
@@ -29,12 +36,18 @@ public class CouplingVisualizerView extends ViewPart {
 		
 		// Add buttons
 		IActionBars bars = getViewSite().getActionBars();
-		bars.getToolBarManager().add(new CollapseAllClassesAction());
-		bars.getToolBarManager().add(new ExpandAllClassesAction());
-		bars.getToolBarManager().add(new IncreaseDepthAction());
-		bars.getToolBarManager().add(new DecreaseDepthAction());
-		bars.getToolBarManager().add(new IncreaseDetailAction());
-		bars.getToolBarManager().add(new DecreaseDetailAction());
+		bars.getToolBarManager().add(ca);
+		bars.getToolBarManager().add(ea);
+		bars.getToolBarManager().add(iha);
+		bars.getToolBarManager().add(dha);
+		bars.getToolBarManager().add(ila);
+		bars.getToolBarManager().add(dla);
+		
+		// Make sure buttons start disabled if need to be
+//		if (!CouplingVisualizerView.mngc.canIncreaseDetailLevel()) { CouplingVisualizerView.ila.setEnabled(false); }
+//		if (!CouplingVisualizerView.mngc.canIncreaseDepthLevel()) { CouplingVisualizerView.iha.setEnabled(false); }
+//		if (!CouplingVisualizerView.mngc.canDecreaseDetailLevel()) { CouplingVisualizerView.dla.setEnabled(false); }
+//		if (!CouplingVisualizerView.mngc.canDecreaseDepthLevel()) { CouplingVisualizerView.dha.setEnabled(false); }
 	}
 
 	public static void setLayoutManager() {

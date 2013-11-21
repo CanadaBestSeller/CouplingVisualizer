@@ -15,12 +15,18 @@ public class IncreaseDetailAction extends Action {
 	public IncreaseDetailAction() {
 		setToolTipText("More Details");
 		Bundle bundle = Platform.getBundle("CouplingVisualizer");
-		URL fullPathString = BundleUtility.find(bundle, "icons/zoom_in.png");
-		setImageDescriptor(ImageDescriptor.createFromURL(fullPathString));
+
+		URL enabled_string = BundleUtility.find(bundle, "icons/zoom_in.png");
+		setImageDescriptor(ImageDescriptor.createFromURL(enabled_string));
+
+		URL disabled_string = BundleUtility.find(bundle, "icons/zoom_in_disabled.png");
+		setDisabledImageDescriptor(ImageDescriptor.createFromURL(disabled_string));
 	}
 
 	@Override
 	public void run() {
 		CouplingVisualizerView.mngc.increaseDetaillevel();
+		if (!CouplingVisualizerView.mngc.canIncreaseDetailLevel()) { CouplingVisualizerView.ila.setEnabled(false); }
+		if (CouplingVisualizerView.mngc.canDecreaseDetailLevel()) { CouplingVisualizerView.dla.setEnabled(true); }
 	}
 }

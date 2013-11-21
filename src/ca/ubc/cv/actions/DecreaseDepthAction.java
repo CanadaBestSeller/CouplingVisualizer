@@ -15,12 +15,18 @@ public class DecreaseDepthAction extends Action {
 	public DecreaseDepthAction() {
 		setToolTipText("Decrease Depth");
 		Bundle bundle = Platform.getBundle("CouplingVisualizer");
-		URL fullPathString = BundleUtility.find(bundle, "icons/decrease_depth.png");
-		setImageDescriptor(ImageDescriptor.createFromURL(fullPathString));
+
+		URL enabled_string = BundleUtility.find(bundle, "icons/decrease_depth.png");
+		setImageDescriptor(ImageDescriptor.createFromURL(enabled_string));
+
+		URL disabled_string = BundleUtility.find(bundle, "icons/decrease_depth_disabled.png");
+		setDisabledImageDescriptor(ImageDescriptor.createFromURL(disabled_string));
 	}
 
 	@Override
 	public void run() {
 		CouplingVisualizerView.mngc.decreaseDepthLevel();
+		if (!CouplingVisualizerView.mngc.canDecreaseDepthLevel()) { CouplingVisualizerView.dha.setEnabled(false); }
+		if (CouplingVisualizerView.mngc.canIncreaseDepthLevel()) { CouplingVisualizerView.iha.setEnabled(true); }
 	}
 }

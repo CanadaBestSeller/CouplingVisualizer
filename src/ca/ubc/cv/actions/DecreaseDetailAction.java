@@ -15,12 +15,18 @@ public class DecreaseDetailAction extends Action {
 	public DecreaseDetailAction() {
 		setToolTipText("Less Details");
 		Bundle bundle = Platform.getBundle("CouplingVisualizer");
-		URL fullPathString = BundleUtility.find(bundle, "icons/zoom_out.png");
-		setImageDescriptor(ImageDescriptor.createFromURL(fullPathString));
+
+		URL enabled_string = BundleUtility.find(bundle, "icons/zoom_out.png");
+		setImageDescriptor(ImageDescriptor.createFromURL(enabled_string));
+
+		URL disabled_string = BundleUtility.find(bundle, "icons/zoom_out_disabled.png");
+		setDisabledImageDescriptor(ImageDescriptor.createFromURL(disabled_string));
 	}
 
 	@Override
 	public void run() {
 		CouplingVisualizerView.mngc.decreaseDetailLevel();
+		if (!CouplingVisualizerView.mngc.canDecreaseDetailLevel()) { CouplingVisualizerView.dla.setEnabled(false); }
+		if (CouplingVisualizerView.mngc.canIncreaseDetailLevel()) { CouplingVisualizerView.ila.setEnabled(true); }
 	}
 }
