@@ -39,7 +39,9 @@ public class MethodNodeToGraphConverter {
 
 	private Map<GraphConnection, Integer> graphConnectionDepths; 
 	private Map<GraphNode, Integer> graphNodeDepths;
-	private Map<GraphContainer, Integer> graphContainersDepths; 
+	private Map<GraphContainer, Integer> graphContainersDepths;
+	
+	private Map<GraphConnection, String> graphConnectionLabels;
 
 	private int max_depth = 0; 
 	private int currentDetailLevel;
@@ -55,10 +57,14 @@ public class MethodNodeToGraphConverter {
 	 * CLASS_METHOD_PARAMETERS: This level illustrates
 	 * 	method dependencies and displays the parameters
 	 * 	and return types of each method. 
+	 * CLASS_METHOD_PARAMETERS_TWO: Alternative way to
+	 * display method dependencies, classes, parameters,
+	 * and return types. 
 	 */
 	public static final int CLASS_ONLY = 1;
 	public static final int CLASS_METHOD = 2; 
 	public static final int CLASS_METHOD_PARAMETERS = 3;
+	public static final int CLASS_METHOD_PARAMETERS_TWO = 4; 
 
 	private Composite parent;
 	private Graph graph; 
@@ -89,6 +95,8 @@ public class MethodNodeToGraphConverter {
 		graphNodeDepths = new HashMap<GraphNode, Integer>();
 		graphContainersDepths = new HashMap<GraphContainer, Integer>();
 
+		graphConnectionLabels = new HashMap<GraphConnection, String>(); 
+		
 		currentDetailLevel = detailLevel;
 		rootMethodNode = rootNode; 
 
@@ -104,12 +112,12 @@ public class MethodNodeToGraphConverter {
 		}
 
 		GraphNode rootGraphNode = this.getGraphNode(rootNode, rootDetailLevel, 0);
-		Display display = Display.getCurrent();
-		Color yellow = display.getSystemColor(SWT.COLOR_MAGENTA);
-		Color orange = display.getSystemColor(SWT.COLOR_LIST_BACKGROUND);
-
 		//To distinguish the root node, color it differently. 
-		rootGraphNode.setBackgroundColor(yellow);
+		Display display = Display.getCurrent();
+		Color magenta = display.getSystemColor(SWT.COLOR_MAGENTA);
+		Color orange = display.getSystemColor(SWT.COLOR_LIST_BACKGROUND);
+		rootGraphNode.setBackgroundColor(magenta);
+
 		classToGraphContainerMap.get(rootNode.getClassName()).setBackgroundColor(orange);
 
 		//Start assembling the graph. 
@@ -129,7 +137,9 @@ public class MethodNodeToGraphConverter {
 					);
 			gc.open(true);
 		}
-		//this.adjustDetailLevel(1); //Testing purposes. TODO: Change this
+		
+		//this.setDetailLevel(1); //Testing purposes. TODO: Change this
+		this.setDetailLevel(4);
 		return graph; 
 	}
 
@@ -192,6 +202,7 @@ public class MethodNodeToGraphConverter {
 				gc.setTooltip(label);
 			}
 			gc.changeLineColor(parent.getDisplay().getSystemColor(SWT.COLOR_BLACK));
+			graphConnectionLabels.put(gc, originMn.getParametersAsString());
 			graphConnectionDepths.put(gc, depth); 
 
 			//Cycle check
@@ -266,14 +277,20 @@ public class MethodNodeToGraphConverter {
 	 * (method name, parameters, and return type). 
 	 * @param detailLevel
 	 */
-	public void adjustDetailLevel(int detailLevel) {
+	public void setDetailLevel(int detailLevel) {
 		if (detailLevel < CLASS_ONLY) {
 			return;
 		}
-		if (detailLevel > CLASS_METHOD_PARAMETERS) {
+		if (detailLevel > CLASS_METHOD_PARAMETERS_TWO) {//TODO: Increase cap to 4
 			return; 
 		}
 
+		/*
+		 * If we change the detail level from CLASS_ONLY to CLASS_METHOD 
+		 * (or vice-versa), then we simply re-draw the view panel. This 
+		 * is because the differences are significant enough that we would
+		 * need to. 
+		 */
 		if ((detailLevel == CLASS_ONLY && currentDetailLevel == CLASS_METHOD) 
 				|| (detailLevel == CLASS_METHOD && currentDetailLevel == CLASS_ONLY)){
 			CouplingVisualizerView.clearGraph();
@@ -286,10 +303,24 @@ public class MethodNodeToGraphConverter {
 			for (Map.Entry<MethodNode, GraphNode> nodeEntry : methodToGraphNodeMap.entrySet()) {
 				nodeEntry.getValue().setText(nodeEntry.getKey().getSimpleMethodName());
 			}
+			for (Map.Entry<GraphConnection, String> gcEntry : graphConnectionLabels.entrySet()) {
+				gcEntry.getKey().setText(""); 
+			}
 		}
 		else if (detailLevel == CLASS_METHOD_PARAMETERS) {
 			for (Map.Entry<MethodNode, GraphNode> nodeEntry : methodToGraphNodeMap.entrySet()) {
 				nodeEntry.getValue().setText(nodeEntry.getKey().getDetailedMethodName());
+			}
+			for (Map.Entry<GraphConnection, String> gcEntry : graphConnectionLabels.entrySet()) {
+				gcEntry.getKey().setText(""); 
+			}
+		}
+		else if(detailLevel == CLASS_METHOD_PARAMETERS_TWO) {
+			for (Map.Entry<MethodNode, GraphNode> nodeEntry : methodToGraphNodeMap.entrySet()) {
+				nodeEntry.getValue().setText(nodeEntry.getKey().getMethodNameAndReturnType());
+			}
+			for (Map.Entry<GraphConnection, String> gcEntry : graphConnectionLabels.entrySet()) {
+				gcEntry.getKey().setText(gcEntry.getValue()); 
 			}
 		}
 	}
@@ -305,7 +336,7 @@ public class MethodNodeToGraphConverter {
 	 * time and increases speed.  
 	 * @param depth
 	 */
-	public void refreshDepth(int depth) {
+	public void setDepthLevel(int depth) {
 		int level = depth; 
 
 		if (depth > max_depth) {

@@ -47,6 +47,9 @@ public class MethodNode {
 	public String getSimpleMethodName() {
 		return methodName + "()";
 	}
+	public String getMethodNameAndReturnType() {
+		return methodName + "() : " + this.getReturnType(); 
+	}
 	public String getDetailedMethodName() {
 		String mnName = methodName + "(";
 		List<String> params = this.getParameters();
@@ -78,6 +81,18 @@ public class MethodNode {
 	}
 	public List<String> getParameters() {
 		return parametersList;
+	}
+	public String getParametersAsString() {
+		String val = "";
+		for (int i = 0; i < parametersList.size(); i++) {
+			if (i == parametersList.size() - 1) {
+				val += parametersList.get(i); 
+			}
+			else {
+				val += parametersList.get(i) + ", ";
+			}
+		}
+		return val; 
 	}
 	public void setParameters(List<String> parameters) {
 		this.parametersList = parameters;
