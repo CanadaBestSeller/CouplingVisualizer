@@ -3,6 +3,15 @@ CouplingVisualizer
 
 UBC CPSC 410 Project
 
+***Installation Instruction
+1. At the Java Eclipse menu bar, click:
+Help -> Install New Software
+
+2. Paste the following link as the site to work with:
+http://couplingvisualizer.co.nf/site.xml
+
+3. Select CouplingVisualizer. 
+
 ***Aspect Represented:
 Our project aims to develop an Eclipse plugin which visually represents code coupling, specifically class and method dependencies. This plugin will generate a web diagram which centers around a selected method and displays connectivity to its method/class dependants. The output of our visualization aims to aid developers in understanding coupling relationships.
 
@@ -18,14 +27,14 @@ F. Visualizer
 
 ***Internal Components
 B. IMethod Extractor
-    The IMethod Extractor is responsible for taking in ITypes from the package explorer and extracting out an IMethod. IMethods are Java’s representation of methods. IMethods allow Eclipse to use an internal Eclipse package to extract out call hierarchy relationships relating to the selected method. The method is selected either by a drag-and-drop operation into our view window or by right-clicking the element in the Eclipse package directory and clicking on the button called “Show Method Dependencies/Dependents.” The IMethod Extractor outputs a single IMethod Java object to be used to display our coupling visualization.
+    The IMethod Extractor is responsible for taking in ITypes from the package explorer and extracting out an IMethod. IMethods are Javaî–¸ representation of methods. IMethods allow Eclipse to use an internal Eclipse package to extract out call hierarchy relationships relating to the selected method. The method is selected either by a drag-and-drop operation into our view window or by right-clicking the element in the Eclipse package directory and clicking on the button called î˜µhow Method Dependencies/Dependents.ï¿½The IMethod Extractor outputs a single IMethod Java object to be used to display our coupling visualization.
 
 C. Tree Builder 
     The Tree Builder is responsible for receiving one IMethod from the IMethod Extractor and outputting a method tree to be used by the Translator. The Tree Builder uses the eclipse JDT internal classes to find callers of the method (Component D). Then by adding the returned callers to the tree and recursively calling Component D again, the tree builder will build our method tree with the selected IMethod and all if its callees. This can be further explained by the following:
 
 - Builds a tree of height 0, where root is the starting IMethod
 - Takes the IMethod
-- Retrieves callers of the IMethod using Eclipse’s call hierarchy package (Component D)
+- Retrieves callers of the IMethod using Eclipseî–¸ call hierarchy package (Component D)
 - For every caller inside of IMethod:
 - create a method node for caller
 - connect caller to IMethod in result tree
@@ -66,7 +75,7 @@ E. Translator
 - Root node is the method of interest
 - Descendents are callers of the method
 - Directly or indirectly 
-- Defined where a node’s children calls the parent node. 
+- Defined where a nodeî–¸ children calls the parent node. 
 
 6. XML
 - XML format to be used for visualization
