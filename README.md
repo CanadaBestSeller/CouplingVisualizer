@@ -3,7 +3,7 @@ CouplingVisualizer
 
 UBC CPSC 410 Project
 
-***Installation Instruction
+***Installation Instructions***
 1. At the Java Eclipse menu bar, click:
 Help -> Install New Software
 
@@ -12,10 +12,28 @@ http://couplingvisualizer.co.nf/site.xml
 
 3. Select CouplingVisualizer. 
 
-***Aspect Represented:
-Our project aims to develop an Eclipse plugin which visually represents code coupling, specifically class and method dependencies. This plugin will generate a web diagram which centers around a selected method and displays connectivity to its method/class dependants. The output of our visualization aims to aid developers in understanding coupling relationships.
+-OR-
 
-***External Components:
+1. Go to our plugin's Eclipse marketplace site:
+https://marketplace.eclipse.org/node/1312280
+
+2. Drag the installation icon to your eclipse workbench.
+
+***Plugin Overview***
+Thank you for taking the time to check out our plugin.
+
+This plugin started as a UBC CPSC410 project, it visually represents code coupling, specifically class and method dependencies. You can use this plugin to generate a web diagram which centers around a selected method and displays connectivity to its method/class dependants. The output of our visualization aims to aid developers in understanding coupling relationships.
+
+Developers:
+David Li
+Justin Mew
+Michelle Dow
+Kit Wan
+
+Components
+==========
+
+***External Components***
 A. Project View
     The project view is an Eclipse component that is responsible for parsing raw java code into an Abstract Syntax Tree (AST). The AST is then translated into ITypes, which would later allow for the extraction of classes or specific methods or fields. The IType is a java interface that is native to Eclipse. Through our project view component a tree view of ITypes are outputted to the IMethod Extractor.
 
@@ -25,7 +43,7 @@ D. org.eclipse.jdt.internal.corext.callhierarchy [1]
 F. Visualizer
     The visualizer is responsible for reading in the XML file provided by the translator and outputting our visualization. The visualization will be a coupling web that displays the coupling relationships of a method and all of its callees.
 
-***Internal Components
+***Internal Components***
 B. IMethod Extractor
     The IMethod Extractor is responsible for taking in ITypes from the package explorer and extracting out an IMethod. IMethods are Java representation of methods. IMethods allow Eclipse to use an internal Eclipse package to extract out call hierarchy relationships relating to the selected method. The method is selected either by a drag-and-drop operation into our view window or by right-clicking the element in the Eclipse package directory and clicking on the button called how Method Dependencies/Dependents.�The IMethod Extractor outputs a single IMethod Java object to be used to display our coupling visualization.
 
@@ -44,7 +62,7 @@ C. Tree Builder
 E. Translator
     The translator is responsible for converting the method tree outputted by the tree building into an XML file to be used by the visualizer. 
 
-***Datatypes being passed by modules
+***Datatypes being passed by modules***
 1. ITypes in Package Explorer
 - ITypes are accessed through the package explorer
 - Abstract Java interface 
