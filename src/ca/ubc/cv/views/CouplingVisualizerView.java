@@ -12,12 +12,12 @@ import org.eclipse.zest.layouts.algorithms.SpringLayoutAlgorithm;
 import org.eclipse.zest.layouts.algorithms.TreeLayoutAlgorithm;
 
 import ca.ubc.cv.actions.*;
-import ca.ubc.cv.graph.MethodNodeToGraphConverter;
+import ca.ubc.cv.graph.GraphModel;
 
 public class CouplingVisualizerView extends ViewPart {
 	public static final String ID = "ca.ubc.cv.views.couplingvisualizerview";
 	public static Graph graph;
-	public static MethodNodeToGraphConverter mngc;
+	public static GraphModel mngc;
 	public static Composite parent;
 	private static int layout = 1;
 
@@ -32,7 +32,7 @@ public class CouplingVisualizerView extends ViewPart {
 		// Graph will hold all other objects
 		graph = new Graph(compositeParent, SWT.NONE);
 		parent = compositeParent;
-		mngc = new MethodNodeToGraphConverter(CouplingVisualizerView.parent, CouplingVisualizerView.graph);
+		mngc = new GraphModel(CouplingVisualizerView.parent, CouplingVisualizerView.graph);
 		
 		// Add buttons
 		IActionBars bars = getViewSite().getActionBars();

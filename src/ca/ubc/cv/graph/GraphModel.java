@@ -22,12 +22,18 @@ import ca.ubc.cv.treebuilder.MethodNode;
 import ca.ubc.cv.views.CouplingVisualizerView;
 
 /**
- * MethodNodeToGraphConverter is responsible for taking in
+ * GraphModel is responsible for taking in
  * the root MethodNode, and constructing a Graph object that
- * displays the components.  
+ * displays the components. In addition, it tracks all the
+ * various graph components (GraphContainer, GraphConnection,
+ * and GraphNode) found within the model. This is so that it 
+ * can perform various operations with regards to how to 
+ * display the data. For example, it can go back and
+ * adjust the visbility of Graph objects that are
+ * more than 4 degrees of separation from the selected method   
  *
  */
-public class MethodNodeToGraphConverter {
+public class GraphModel {
 
 	/*
 	 * Fields used to map MethodNodes to GraphNodes.
@@ -75,7 +81,7 @@ public class MethodNodeToGraphConverter {
 	 * @param parent
 	 * @param graph
 	 */
-	public MethodNodeToGraphConverter(Composite parent, Graph graph) {
+	public GraphModel(Composite parent, Graph graph) {
 		this.graph = graph; 
 		this.parent = parent; 
 	}
@@ -138,10 +144,6 @@ public class MethodNodeToGraphConverter {
 					);
 			gc.open(true);
 		}
-		
-		//this.setDetailLevel(1); //Testing purposes. TODO: Change this
-		//this.setDetailLevel(4);
-		//this.setDetailLevel(CLASS_ONLY); //Testing
 		
 		currentDepthLevel = max_depth;
 		if (max_depth > 2) {
@@ -275,6 +277,7 @@ public class MethodNodeToGraphConverter {
 			gc = new GraphContainer(graph, SWT.NONE, mn.getClassName());
 			classToGraphContainerMap.put(mn.getClassName(), gc);
 			graphContainersDepths.put(gc, depth);
+			gc.open(true);
 		}
 		return gc; 
 	}

@@ -7,7 +7,7 @@ import org.eclipse.zest.layouts.LayoutStyles;
 import org.eclipse.zest.layouts.algorithms.SpringLayoutAlgorithm;
 
 import ca.ubc.cv.CouplingVisualizer;
-import ca.ubc.cv.graph.MethodNodeToGraphConverter;
+import ca.ubc.cv.graph.GraphModel;
 import ca.ubc.cv.treebuilder.MethodNode;
 import ca.ubc.cv.treebuilder.MethodTreeBuilder;
 import ca.ubc.cv.views.CouplingVisualizerView;
@@ -20,7 +20,7 @@ public class IMethodHandler {
 	    MethodTreeBuilder chg = new MethodTreeBuilder();
         MethodNode rootMethodNode = chg.constructMethodTree(m);
         
-        CouplingVisualizerView.mngc.methodNodeTreeToGraph(rootMethodNode, MethodNodeToGraphConverter.CLASS_METHOD);
+        CouplingVisualizerView.mngc.methodNodeTreeToGraph(rootMethodNode, GraphModel.CLASS_METHOD);
 
 		CouplingVisualizerView.graph.setLayoutAlgorithm(new SpringLayoutAlgorithm(
 				LayoutStyles.NO_LAYOUT_NODE_RESIZING), true);
